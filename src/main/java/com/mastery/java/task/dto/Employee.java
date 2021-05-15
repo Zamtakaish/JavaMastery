@@ -1,6 +1,9 @@
 package com.mastery.java.task.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Employee {
@@ -15,7 +18,8 @@ public class Employee {
     private String jobTitle;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    private String dateOfBirth;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date dateOfBirth;
 
     public Employee() {
     }
@@ -44,7 +48,7 @@ public class Employee {
         return gender;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
