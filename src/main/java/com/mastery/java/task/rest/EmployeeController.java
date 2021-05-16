@@ -20,8 +20,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/{id}")
-    public void getEmployee(@PathVariable int id) {
-        employeeService.getEmployee(id);
+    public Employee getEmployee(@PathVariable int id) {
+        return employeeService.getEmployee(id);
     }
 
     @PostMapping("/employees")

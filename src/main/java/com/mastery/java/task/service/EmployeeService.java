@@ -17,8 +17,8 @@ public class EmployeeService {
         return employeeDao.getAllEmployees();
     }
 
-    public void getEmployee(int id){
-        employeeDao.getEmployee(id);
+    public Employee getEmployee(int id){
+        return employeeDao.getEmployee(id);
     }
 
     public void createEmployee(Employee employee){
