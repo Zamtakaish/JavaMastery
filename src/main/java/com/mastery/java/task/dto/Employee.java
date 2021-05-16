@@ -9,7 +9,8 @@ import java.util.Date;
 public class Employee {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_generator")
+    @SequenceGenerator(name="employee_generator", sequenceName = "employee_employee_id_seq", allocationSize = 1)
     private Integer employeeId;
 
     private String firstName;
