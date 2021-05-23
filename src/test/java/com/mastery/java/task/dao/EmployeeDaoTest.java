@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -67,7 +66,8 @@ public class EmployeeDaoTest {
 
         setTestEmployee();
 
-        given(repositoryMock.findById(anyInt())).willReturn(Optional.ofNullable(null));
+
+        when(repositoryMock.findById(anyInt())).thenReturn(Optional.ofNullable(null));
         employeeDao.getEmployee(testEmployee.getEmployeeId());
 
     }
@@ -104,7 +104,7 @@ public class EmployeeDaoTest {
         Employee newTestEmployee = testEmployee;
         newTestEmployee.setFirstName("Alan");
 
-        given(repositoryMock.findById(anyInt())).willReturn(Optional.ofNullable(null));
+        when(repositoryMock.findById(anyInt())).thenReturn(Optional.ofNullable(null));
         employeeDao.updateEmployee(testEmployee.getEmployeeId(), newTestEmployee);
 
     }
@@ -124,7 +124,7 @@ public class EmployeeDaoTest {
 
         setTestEmployee();
 
-        given(repositoryMock.findById(anyInt())).willReturn(Optional.ofNullable(null));
+        when(repositoryMock.findById(anyInt())).thenReturn(Optional.ofNullable(null));
         employeeDao.deleteEmployee(testEmployee.getEmployeeId());
 
     }
