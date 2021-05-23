@@ -28,13 +28,13 @@ public class EmployeeController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createEmployee(@RequestBody Employee employee){
-        employeeService.createEmployee(employee);
+    public Employee createEmployee(@RequestBody Employee employee){
+        return employeeService.createEmployee(employee);
     }
 
     @PutMapping("{id}")
-    public void updateEmployee(@PathVariable int id, @RequestBody Employee employee){
-        employeeService.updateEmployee(id, employee);
+    public Employee updateEmployee(@PathVariable int id, @RequestBody Employee employee){
+        return employeeService.updateEmployee(id, employee);
     }
 
     @DeleteMapping("{id}")

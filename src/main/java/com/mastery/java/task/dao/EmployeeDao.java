@@ -27,23 +27,24 @@ public class EmployeeDao {
         return employee.get();
     }
 
-    public void createEmployee(Employee employee){
-        repository.save(employee);
+    public Employee createEmployee(Employee employee){
+        return repository.save(employee);
     }
 
-    public void updateEmployee(int id, Employee employee){
-        if (isEmployeeExist(id)) repository.save(employee);
+    public Employee updateEmployee(int id, Employee employee){
+        isEmployeeExist(id);
+        return repository.save(employee);
     }
 
     public void deleteEmployee(int id){
-        if (isEmployeeExist(id)) repository.deleteById(id);
+        isEmployeeExist(id);
+        repository.deleteById(id);
     }
 
-    private Boolean isEmployeeExist(int id) {
+    private void isEmployeeExist(int id) {
         if (repository.findById(id).isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee is not found with ID: " + id);
         }
-        return true;
     }
 
 }

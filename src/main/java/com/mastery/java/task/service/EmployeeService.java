@@ -21,12 +21,12 @@ public class EmployeeService {
         return employeeDao.getEmployee(id);
     }
 
-    public void createEmployee(Employee employee){
-        employeeDao.createEmployee(employee);
+    public Employee createEmployee(Employee employee){
+        return employeeDao.createEmployee(employee);
     }
 
-    public void updateEmployee(int id, Employee employee){
-        employeeDao.updateEmployee(id, employee);
+    public Employee updateEmployee(int id, Employee employee){
+        return employeeDao.updateEmployee(id, employee);
     }
 
     public void deleteEmployee(int id){
