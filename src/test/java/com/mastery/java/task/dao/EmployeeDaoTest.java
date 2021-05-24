@@ -8,7 +8,10 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
@@ -43,6 +46,7 @@ public class EmployeeDaoTest {
         List<Employee> employeeList = Arrays.asList(testEmployee);
 
         when(repositoryMock.findAll()).thenReturn(employeeList);
+
         Assertions.assertEquals(employeeList, employeeDao.getAllEmployees());
         verify(repositoryMock).findAll();
     }
@@ -53,6 +57,7 @@ public class EmployeeDaoTest {
         initTestEmployee();
 
         when(repositoryMock.findById(testEmployee.getEmployeeId())).thenReturn(Optional.of(testEmployee));
+
         employeeDao.getEmployee(testEmployee.getEmployeeId());
         verify(repositoryMock).findById(testEmployee.getEmployeeId());
     }
@@ -64,6 +69,7 @@ public class EmployeeDaoTest {
 
 
         when(repositoryMock.findById(anyInt())).thenReturn(Optional.ofNullable(null));
+
         employeeDao.getEmployee(testEmployee.getEmployeeId());
 
     }
@@ -75,6 +81,7 @@ public class EmployeeDaoTest {
 
         when(repositoryMock.save(ArgumentMatchers.any(Employee.class))).thenReturn(testEmployee);
         employeeDao.createEmployee(testEmployee);
+
         verify(repositoryMock).save(testEmployee);
     }
 
@@ -88,6 +95,7 @@ public class EmployeeDaoTest {
 
         when(repositoryMock.findById(testEmployee.getEmployeeId())).thenReturn(Optional.of(testEmployee));
         employeeDao.updateEmployee(testEmployee.getEmployeeId(), newTestEmployee);
+
         verify(repositoryMock).save(newTestEmployee);
         verify(repositoryMock).findById(testEmployee.getEmployeeId());
     }
@@ -110,7 +118,8 @@ public class EmployeeDaoTest {
 
         initTestEmployee();
 
-        when(repositoryMock.findById(testEmployee.getEmployeeId())).thenReturn(Optional.of(testEmployee));
+        doNothing().when(repositoryMock).deleteById(testEmployee.getEmployeeId());
+
         employeeDao.deleteEmployee(testEmployee.getEmployeeId());
         verify(repositoryMock).deleteById(testEmployee.getEmployeeId());
     }
@@ -120,7 +129,9 @@ public class EmployeeDaoTest {
 
         initTestEmployee();
 
-        when(repositoryMock.findById(anyInt())).thenReturn(Optional.ofNullable(null));
+        Mockito.doThrow(new ResponseStatusException(HttpStatus.NOT_FOUND))
+                .when(repositoryMock).deleteById(anyInt());
+
         employeeDao.deleteEmployee(testEmployee.getEmployeeId());
 
     }
