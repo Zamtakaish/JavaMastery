@@ -25,6 +25,17 @@ public class Employee {
     public Employee() {
     }
 
+    public Employee(Integer employeeId, String firstName, String lastName, Short departmentId,
+                    String jobTitle, Gender gender, Date dateOfBirth) {
+        this.employeeId = employeeId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.departmentId = departmentId;
+        this.jobTitle = jobTitle;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+    }
+
     public Integer getEmployeeId() {
         return employeeId;
     }
