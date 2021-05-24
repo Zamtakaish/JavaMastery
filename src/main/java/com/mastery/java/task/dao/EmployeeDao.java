@@ -2,6 +2,7 @@ package com.mastery.java.task.dao;
 
 import com.mastery.java.task.dto.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
@@ -32,19 +33,21 @@ public class EmployeeDao {
     }
 
     public Employee updateEmployee(int id, Employee employee){
-        isEmployeeExist(id);
+
+        if (repository.findById(id).isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee is not found with ID: " + id);
+        }
+
         return repository.save(employee);
     }
 
     public void deleteEmployee(int id){
-        isEmployeeExist(id);
-        repository.deleteById(id);
-    }
-
-    private void isEmployeeExist(int id) {
-        if (repository.findById(id).isEmpty()){
+        try{
+            repository.deleteById(id);
+        }
+        catch (DataRetrievalFailureException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee is not found with ID: " + id);
         }
-    }
 
+    }
 }
