@@ -11,10 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.Mockito.*;
 
@@ -28,7 +25,7 @@ public class EmployeeDaoTest {
 
     private final Employee testEmployee = new Employee();
 
-    private void setTestEmployee(){
+    private void initTestEmployee(){
         testEmployee.setEmployeeId(101);
         testEmployee.setFirstName("Test");
         testEmployee.setLastName("Test");
@@ -41,10 +38,9 @@ public class EmployeeDaoTest {
 
     @Test
     public void shouldReturnAllEmployees(){
-        setTestEmployee();
+        initTestEmployee();
 
-        List<Employee> employeeList = new ArrayList();
-        employeeList.add(testEmployee);
+        List<Employee> employeeList = Arrays.asList(testEmployee);
 
         when(repositoryMock.findAll()).thenReturn(employeeList);
         Assertions.assertEquals(employeeList, employeeDao.getAllEmployees());
@@ -52,9 +48,9 @@ public class EmployeeDaoTest {
     }
 
     @Test
-    public void shouldReturnEmployee_ifFound(){
+    public void shouldReturnEmployeeIfFound(){
 
-        setTestEmployee();
+        initTestEmployee();
 
         when(repositoryMock.findById(testEmployee.getEmployeeId())).thenReturn(Optional.of(testEmployee));
         employeeDao.getEmployee(testEmployee.getEmployeeId());
@@ -62,9 +58,9 @@ public class EmployeeDaoTest {
     }
 
     @Test (expected = ResponseStatusException.class)
-    public void shouldThrowException_ifEmployeeNotFound() throws ResponseStatusException{
+    public void shouldThrowExceptionIfEmployeeNotFound() throws ResponseStatusException{
 
-        setTestEmployee();
+        initTestEmployee();
 
 
         when(repositoryMock.findById(anyInt())).thenReturn(Optional.ofNullable(null));
@@ -73,9 +69,9 @@ public class EmployeeDaoTest {
     }
 
     @Test
-    public void shouldReturnEmployee_ifEmployeeCreated(){
+    public void shouldReturnEmployeeIfEmployeeCreated(){
 
-        setTestEmployee();
+        initTestEmployee();
 
         when(repositoryMock.save(ArgumentMatchers.any(Employee.class))).thenReturn(testEmployee);
         employeeDao.createEmployee(testEmployee);
@@ -83,9 +79,9 @@ public class EmployeeDaoTest {
     }
 
     @Test
-    public void shouldUpdateEmployee_ifFound(){
+    public void shouldUpdateEmployeeIfFound(){
 
-        setTestEmployee();
+        initTestEmployee();
 
         Employee newTestEmployee = testEmployee;
         newTestEmployee.setFirstName("Alan");
@@ -97,9 +93,9 @@ public class EmployeeDaoTest {
     }
 
     @Test (expected = ResponseStatusException.class)
-    public void shouldThrowException_ifEmployeeForUpdateNotFound() throws ResponseStatusException{
+    public void shouldThrowExceptionIfEmployeeForUpdateNotFound() throws ResponseStatusException{
 
-        setTestEmployee();
+        initTestEmployee();
 
         Employee newTestEmployee = testEmployee;
         newTestEmployee.setFirstName("Alan");
@@ -110,9 +106,9 @@ public class EmployeeDaoTest {
     }
 
     @Test
-    public void shouldDeleteEmployee_ifFound(){
+    public void shouldDeleteEmployeeIfFound(){
 
-        setTestEmployee();
+        initTestEmployee();
 
         when(repositoryMock.findById(testEmployee.getEmployeeId())).thenReturn(Optional.of(testEmployee));
         employeeDao.deleteEmployee(testEmployee.getEmployeeId());
@@ -120,9 +116,9 @@ public class EmployeeDaoTest {
     }
 
     @Test (expected = ResponseStatusException.class)
-    public void shouldThrowException_ifNoEmployeeToDelete() throws ResponseStatusException{
+    public void shouldThrowExceptionIfNoEmployeeToDelete() throws ResponseStatusException{
 
-        setTestEmployee();
+        initTestEmployee();
 
         when(repositoryMock.findById(anyInt())).thenReturn(Optional.ofNullable(null));
         employeeDao.deleteEmployee(testEmployee.getEmployeeId());

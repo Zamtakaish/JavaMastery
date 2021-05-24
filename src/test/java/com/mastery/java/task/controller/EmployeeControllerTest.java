@@ -41,7 +41,7 @@ public class EmployeeControllerTest {
 
     private final Employee testEmployee = new Employee();
 
-    public void setTestEmployee(){
+    public void initTestEmployee(){
         testEmployee.setEmployeeId(101);
         testEmployee.setFirstName("Test");
         testEmployee.setLastName("Test");
@@ -52,9 +52,9 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void shouldListAllUsers_whenGetMethodCalled() throws Exception {
+    public void shouldListAllUsersWhenGetMethodCalled() throws Exception {
 
-        setTestEmployee();
+        initTestEmployee();
 
         List<Employee> employeeList = Arrays.asList(testEmployee);
 
@@ -68,9 +68,9 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void shouldListUserById_whenGetMethodCalled() throws Exception {
+    public void shouldListUserByIdWhenGetMethodCalled() throws Exception {
 
-        setTestEmployee();
+        initTestEmployee();
 
         int id = testEmployee.getEmployeeId();
 
@@ -83,9 +83,9 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void shouldThrowException_ifEmployeeNotFound() throws Exception {
+    public void shouldThrowExceptionIfEmployeeNotFound() throws Exception {
 
-        setTestEmployee();
+        initTestEmployee();
 
         int id = testEmployee.getEmployeeId();
 
@@ -97,7 +97,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void shouldCreateUser_whenPostMethodCalled() throws Exception {
+    public void shouldCreateUserWhenPostMethodCalled() throws Exception {
 
 
 
@@ -113,9 +113,9 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void shouldUpdateEmployeeById_whenPutMethodCalled() throws Exception {
+    public void shouldUpdateEmployeeByIdWhenPutMethodCalled() throws Exception {
 
-        setTestEmployee();
+        initTestEmployee();
 
         int id = testEmployee.getEmployeeId();
 
@@ -131,9 +131,9 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void shouldThrowException_ifEmployeeForUpdateNotFound() throws Exception {
+    public void shouldThrowExceptionIfEmployeeForUpdateNotFound() throws Exception {
 
-        setTestEmployee();
+        initTestEmployee();
 
         int id = testEmployee.getEmployeeId();
 
@@ -150,9 +150,9 @@ public class EmployeeControllerTest {
 
 
     @Test
-    public void shouldDeleteEmployeeById_whenDeleteMethodCalled() throws Exception {
+    public void shouldDeleteEmployeeByIdWhenDeleteMethodCalled() throws Exception {
 
-        setTestEmployee();
+        initTestEmployee();
 
         int id = testEmployee.getEmployeeId();
 
@@ -163,9 +163,9 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void shouldThrowException_ifNoEmployeeToDelete() throws Exception {
+    public void shouldThrowExceptionIfNoEmployeeToDelete() throws Exception {
 
-        setTestEmployee();
+        initTestEmployee();
 
         int id = testEmployee.getEmployeeId();
 
