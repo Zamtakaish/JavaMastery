@@ -26,15 +26,15 @@ public class EmployeeController {
         return employeeService.getEmployee(id);
     }
 
-    @PostMapping("")
+    @PostMapping("")//?
     @ResponseStatus(HttpStatus.CREATED)
     public Employee createEmployee(@RequestBody Employee employee){
         return employeeService.createEmployee(employee);
     }
 
-    @PutMapping("{id}")
-    public Employee updateEmployee(@PathVariable int id, @RequestBody Employee employee){
-        return employeeService.updateEmployee(id, employee);
+    @PutMapping("{id}")//?
+    public void updateEmployee(@PathVariable int id, @RequestBody Employee employee){
+        employeeService.updateEmployee(id, employee);
     }
 
     @DeleteMapping("{id}")
