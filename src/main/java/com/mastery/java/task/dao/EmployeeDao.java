@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Repository// repository ?; use JDBC template here
+@Repository
 public class EmployeeDao {
 
     @Value("${spring.datasource.url}")
